@@ -125,4 +125,5 @@ func BuscarDadosAnvisa(codigoRegistro string) (*DadosAnvisa, error) {
 // const cacheDuration = 24 * time.Hour
 // func getCachePath() (string, error) { ... }
 // func buscarDoCache(codigo string) (*DadosAnvisa, error) { ... }
+
 // func salvarNoCache(codigo string, dados *DadosAnvisa) error { ... }

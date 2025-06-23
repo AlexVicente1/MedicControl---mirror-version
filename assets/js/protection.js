@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
     });
 
+    
     // Previne DevTools
     document.addEventListener('keydown', function(e) {
         if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j')) {

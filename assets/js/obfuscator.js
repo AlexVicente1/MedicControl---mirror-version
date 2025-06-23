@@ -37,5 +37,6 @@ function obfuscateCode(code) {
     return code;
 }
 
+
 // Exporta a função
 window.obfuscateCode = obfuscateCode; 

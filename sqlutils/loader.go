@@ -56,5 +56,6 @@ func GetQuery(name string) string {
 		log.Printf("Aviso: Query SQL '%s' não encontrada.", name)
 		return "" // Ou retorne um erro
 	}
+
 	return query
 }

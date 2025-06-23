@@ -39,4 +39,5 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     watermark.textContent = '© AlexCodeWorks - Todos os direitos reservados';
     document.body.appendChild(watermark);
+    
 }); 
