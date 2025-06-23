@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Farmácia</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h1>Sistema Farmácia</h1>
+        <div class="user-info">
+            <span class="username">Admin</span>
+            <span class="user-role">admin</span>
+            <button class="btn btn-success" onclick="showCadastroModal()">
+                <i class="fas fa-plus"></i> Novo Produto
+            </button>
+            <button class="btn btn-danger" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Sair
+            </button>
+        </div>
+    </nav>
+
+    <!-- Container Principal -->
+    <div class="container">
+        <!-- Grid de Categorias -->
+        <div class="categorias-grid">
+            <!-- Medicamentos Controlados -->
+            <div class="categoria-card">
+                <div class="categoria-header">
+                    <div class="categoria-title">
+                        <i class="fas fa-lock" style="color: #dc3545"></i>
+                        <h3>Medicamentos Controlados</h3>
+                    </div>
+                </div>
+                <p>Medicamentos que necessitam de receita especial</p>
+                <div class="subcategorias">
+                    <span class="badge" style="background-color: #dc3545">Ansiolíticos</span>
+                    <span class="badge" style="background-color: #dc3545">Antidepressivos</span>
+                    <span class="badge" style="background-color: #dc3545">Psicotrópicos</span>
+                    <span class="badge" style="background-color: #dc3545">Opioides</span>
+                </div>
+                <div class="produtos-container" id="produtos-medicamentos-controlados"></div>
+            </div>
+
+            <!-- Medicamentos Comuns -->
+            <div class="categoria-card">
+                <div class="categoria-header">
+                    <div class="categoria-title">
+                        <i class="fas fa-pills" style="color: #28a745"></i>
+                        <h3>Medicamentos Comuns</h3>
+                    </div>
+                </div>
+                <p>Medicamentos de venda livre</p>
+                <div class="subcategorias">
+                    <span class="badge" style="background-color: #28a745">Analgésicos</span>
+                    <span class="badge" style="background-color: #28a745">Anti-inflamatórios</span>
+                    <span class="badge" style="background-color: #28a745">Antialérgicos</span>
+                    <span class="badge" style="background-color: #28a745">Antigripais</span>
+                    <span class="badge" style="background-color: #28a745">Vitaminas</span>
+                </div>
+                <div class="produtos-container" id="produtos-medicamentos-comuns"></div>
+            </div>
+
+            <!-- Cosméticos -->
+            <div class="categoria-card">
+                <div class="categoria-header">
+                    <div class="categoria-title">
+                        <i class="fas fa-spa" style="color: #fd7e14"></i>
+                        <h3>Cosméticos</h3>
+                    </div>
+                </div>
+                <p>Produtos de beleza e cuidados com a pele</p>
+                <div class="subcategorias">
+                    <span class="badge" style="background-color: #fd7e14">Skincare</span>
+                    <span class="badge" style="background-color: #fd7e14">Proteção Solar</span>
+                    <span class="badge" style="background-color: #fd7e14">Maquiagem</span>
+                    <span class="badge" style="background-color: #fd7e14">Cabelos</span>
+                    <span class="badge" style="background-color: #fd7e14">Perfumaria</span>
+                </div>
+                <div class="produtos-container" id="produtos-cosmeticos"></div>
+            </div>
+
+            <!-- Higiene Pessoal -->
+            <div class="categoria-card">
+                <div class="categoria-header">
+                    <div class="categoria-title">
+                        <i class="fas fa-shower" style="color: #17a2b8"></i>
+                        <h3>Higiene Pessoal</h3>
+                    </div>
+                </div>
+                <p>Produtos para higiene e cuidados pessoais</p>
+                <div class="subcategorias">
+                    <span class="badge" style="background-color: #17a2b8">Higiene Oral</span>
+                    <span class="badge" style="background-color: #17a2b8">Higiene Corporal</span>
+                    <span class="badge" style="background-color: #17a2b8">Cuidados Íntimos</span>
+                    <span class="badge" style="background-color: #17a2b8">Desodorantes</span>
+                    <span class="badge" style="background-color: #17a2b8">Sabonetes</span>
+                </div>
+                <div class="produtos-container" id="produtos-higiene-pessoal"></div>
+            </div>
+
+            <!-- Suplementos -->
+            <div class="categoria-card">
+                <div class="categoria-header">
+                    <div class="categoria-title">
+                        <i class="fas fa-dumbbell" style="color: #6f42c1"></i>
+                        <h3>Suplementos</h3>
+                    </div>
+                </div>
+                <p>Suplementos alimentares e nutricionais</p>
+                <div class="subcategorias">
+                    <span class="badge" style="background-color: #6f42c1">Proteínas</span>
+                    <span class="badge" style="background-color: #6f42c1">Vitaminas e Minerais</span>
+                    <span class="badge" style="background-color: #6f42c1">Aminoácidos</span>
+                    <span class="badge" style="background-color: #6f42c1">Emagrecedores</span>
+                    <span class="badge" style="background-color: #6f42c1">Energéticos</span>
+                </div>
+                <div class="produtos-container" id="produtos-suplementos"></div>
+            </div>
+
+            <!-- Saúde e Bem-estar -->
+            <div class="categoria-card">
+                <div class="categoria-header">
+                    <div class="categoria-title">
+                        <i class="fas fa-heart" style="color: #20c997"></i>
+                        <h3>Saúde e Bem-estar</h3>
+                    </div>
+                </div>
+                <p>Produtos para saúde e bem-estar geral</p>
+                <div class="subcategorias">
+                    <span class="badge" style="background-color: #20c997">Ortopedia</span>
+                    <span class="badge" style="background-color: #20c997">Primeiros Socorros</span>
+                    <span class="badge" style="background-color: #20c997">Medição e Diagnóstico</span>
+                    <span class="badge" style="background-color: #20c997">Cuidados com Idosos</span>
+                    <span class="badge" style="background-color: #20c997">Fitness e Recuperação</span>
+                </div>
+                <div class="produtos-container" id="produtos-saude-bem-estar"></div>
+            </div>
+
+            <!-- Mãe e Bebê -->
+            <div class="categoria-card">
+                <div class="categoria-header">
+                    <div class="categoria-title">
+                        <i class="fas fa-baby" style="color: #e83e8c"></i>
+                        <h3>Mãe e Bebê</h3>
+                    </div>
+                </div>
+                <p>Produtos para gestantes e bebês</p>
+                <div class="subcategorias">
+                    <span class="badge" style="background-color: #e83e8c">Cuidados com o Bebê</span>
+                    <span class="badge" style="background-color: #e83e8c">Alimentação Infantil</span>
+                    <span class="badge" style="background-color: #e83e8c">Higiene Bebê</span>
+                    <span class="badge" style="background-color: #e83e8c">Gestante</span>
+                    <span class="badge" style="background-color: #e83e8c">Puericultura</span>
+                </div>
+                <div class="produtos-container" id="produtos-mae-bebe"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/scripts.js"></script>
+</body>
+</html> 

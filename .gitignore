@@ -1,0 +1,51 @@
+# Go
+*.exe
+*.test
+*.out
+*.prof
+*.coverprofile
+*.test.coverprofile
+*.test.out
+*.out
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+desktop.ini
+.DS_Store
+Thumbs.db
+
+# Build
+bin/
+obj/
+dist/
+build/
+
+# Dependencies
+vendor/
+node_modules/
+
+# Cache
+.cache/
+
+# Test coverage
+cov/
+coverage/
+
+# Database
+*.db
+*.sql

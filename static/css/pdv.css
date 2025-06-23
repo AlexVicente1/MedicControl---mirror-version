@@ -1,0 +1,140 @@
+/* static/css/pdv.css */
+
+.pdv-container {
+    display: flex;
+    gap: 20px;
+}
+
+.pdv-left, .pdv-right {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.pdv-left {
+    flex: 2;
+}
+
+.pdv-right {
+    flex: 1;
+}
+
+.search-container-pdv {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+#searchPdv {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.search-suggestions-pdv {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.carrinho-container h3 {
+    margin-top: 0;
+}
+
+.carrinho-items {
+    min-height: 150px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.carrinho-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.carrinho-item:last-child {
+    border-bottom: none;
+}
+
+.carrinho-item-info {
+    flex-grow: 1;
+}
+
+.carrinho-item-info span {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.carrinho-item-actions {
+    display: flex;
+    align-items: center;
+}
+
+.carrinho-item-actions input {
+    width: 50px;
+    text-align: center;
+    margin: 0 10px;
+    padding: 5px;
+}
+
+.carrinho-item-actions button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.carrinho-total {
+    text-align: right;
+    font-size: 1.2rem;
+    margin: 20px 0;
+}
+
+#finalizarVendaBtn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+#finalizarVendaBtn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.medicamento-detalhe-pdv {
+    padding: 15px;
+    border: 1px dashed #ccc;
+    border-radius: 4px;
+}
+
+.medicamento-detalhe-pdv h4 {
+    margin-top: 0;
+} 

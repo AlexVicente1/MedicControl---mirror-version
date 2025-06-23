@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediControl - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/search.css">
+    <link rel="stylesheet" href="/css/pdv.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <img src="/logo/Medicontrol.png" alt="MediControl Logo" class="logo">
+                <h1>MediControl</h1>
+            </div>
+            <ul>
+                <li><a href="#" data-page="medicamentos" class="active"><i class="fas fa-pills"></i> Medicamentos</a></li>
+                <li><a href="#" data-page="vendas"><i class="fas fa-cash-register"></i> Ponto de Venda</a></li>
+                <li><a href="#" data-page="movimentacoes"><i class="fas fa-exchange-alt"></i> Movimentações</a></li>
+                <li><a href="#" data-page="relatorios"><i class="fas fa-chart-bar"></i> Relatórios</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <img src="/logo/Alexcodeworks.png" alt="Alex Code Works Logo" class="alexcodeworks-logo">
+                <div class="engineer-info">
+                    Engenheiro de Software Responsável: Leonardo Alex &copy; 2025
+                </div>
+                <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+        </nav>
+
+        <main class="content">
+            <div id="medicamentos-page" class="page active">
+                <div class="header">
+                    <h2>Medicamentos</h2>
+                    <button id="addMedicamentoBtn" class="primary-btn">Novo Medicamento</button>
+                </div>
+                <div class="search-container">
+                    <div class="search-wrapper">
+                        <input 
+                            type="text" 
+                            id="searchMedicamento" 
+                            class="search-input" 
+                            placeholder="Buscar medicamento por nome ou fabricante..."
+                            autocomplete="off"
+                        >
+                        <button type="button" class="search-button clear-search" style="display: none;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="search-loading"></div>
+                        <div class="search-suggestions"></div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="medicamentosTable">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Fabricante</th>
+                                <th>Código ANVISA</th>
+                                <th>Quantidade</th>
+                                <th>Preço</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="vendas-page" class="page">
+                <div class="header">
+                    <h2>Ponto de Venda (PDV)</h2>
+                </div>
+                <div class="pdv-container">
+                    <div class="pdv-left">
+                        <h3>Buscar Medicamento</h3>
+                        <div class="search-container-pdv">
+                             <input type="text" id="searchPdv" placeholder="Digite o nome ou código do medicamento..." autocomplete="off">
+                             <div id="suggestionsPdv" class="search-suggestions-pdv"></div>
+                        </div>
+                        <div id="carrinho" class="carrinho-container">
+                            <h3>Carrinho</h3>
+                            <div class="carrinho-items">
+                                <!-- Itens do carrinho serão adicionados aqui -->
+                            </div>
+                            <div class="carrinho-total">
+                                <strong>Total: R$ <span id="totalVenda">0.00</span></strong>
+                            </div>
+                            <button id="finalizarVendaBtn" class="primary-btn" disabled>Finalizar Venda</button>
+                        </div>
+                    </div>
+                    <div class="pdv-right">
+                        <h3>Detalhes do Medicamento</h3>
+                        <div id="medicamentoDetalhePdv" class="medicamento-detalhe-pdv">
+                            <p>Selecione um medicamento para ver os detalhes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="movimentacoes-page" class="page">
+                <div class="header">
+                    <h2>Movimentações</h2>
+                    <button id="addMovimentacaoBtn" class="primary-btn">Nova Movimentação</button>
+                </div>
+                <div class="table-container">
+                    <table id="movimentacoesTable">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Medicamento</th>
+                                <th>Tipo</th>
+                                <th>Quantidade</th>
+                                <th>Observação</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="relatorios-page" class="page">
+                <h2>Relatórios</h2>
+                <div class="cards-container">
+                    <div class="card">
+                        <h3>Total de Vendas</h3>
+                        <p id="totalVendas">0</p>
+                    </div>
+                    <div class="card">
+                        <h3>Medicamentos em Baixa</h3>
+                        <ul id="medicamentosBaixa"></ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de Novo Medicamento -->
+    <div id="medicamentoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('medicamentoModal')">&times;</span>
+            <h2>Novo Medicamento</h2>
+            <form id="medicamentoForm">
+                <input type="hidden" id="medicamentoId">
+                <div class="input-group anvisa-group">
+                    <label for="codigo_anvisa">Código ANVISA</label>
+                    <input type="text" id="codigo_anvisa">
+                    <button type="button" id="buscarAnvisaBtn" class="secondary-btn">Buscar na ANVISA</button>
+                </div>
+                <div class="input-group">
+                    <label for="nome">Nome do Medicamento</label>
+                    <input type="text" id="nome" required>
+                </div>
+                <div class="input-group">
+                    <label for="fabricante">Fabricante</label>
+                    <input type="text" id="fabricante" required>
+                </div>
+                 <div class="input-group">
+                    <label for="tipo">Tipo / Forma</label>
+                    <input type="text" id="tipo" placeholder="Ex: Comprimido, Suspensão, Injetável">
+                </div>
+                <div class.input-group">
+                    <label for="categoriaId">Categoria</label>
+                    <select id="categoriaId"></select>
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="quantidade">Quantidade</label>
+                        <input type="number" id="quantidade" required min="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="validade">Validade</label>
+                        <input type="date" id="validade">
+                    </div>
+                    <div class="input-group">
+                        <label for="preco">Preço (R$)</label>
+                        <input type="number" id="preco" step="0.01" min="0" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="secondary-btn" onclick="closeModal('medicamentoModal')">Cancelar</button>
+                    <button type="submit" class="primary-btn">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Nova Movimentação -->
+    <div id="movimentacaoModal" class="modal">
+        <div class="modal-content">
+            <h2>Nova Movimentação</h2>
+            <form id="movimentacaoForm">
+                <div class="input-group">
+                    <label for="medicamentoSelect">Medicamento</label>
+                    <select id="medicamentoSelect" required></select>
+                </div>
+                <div class="input-group">
+                    <label for="tipoMovimentacao">Tipo</label>
+                    <select id="tipoMovimentacao" required>
+                        <option value="entrada">Entrada</option>
+                        <option value="saida">Saída</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="quantidadeMovimentacao">Quantidade</label>
+                    <input type="number" id="quantidadeMovimentacao" required min="1">
+                </div>
+                <div class="input-group">
+                    <label for="observacao">Observação</label>
+                    <textarea id="observacao"></textarea>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="secondary-btn" onclick="closeModal('movimentacaoModal')">Cancelar</button>
+                    <button type="submit" class="primary-btn">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/login.js"></script>
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/pdv.js"></script>
+</body>
+</html> 

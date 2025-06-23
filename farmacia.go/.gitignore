@@ -1,0 +1,51 @@
+# Binários e executáveis
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Arquivos de log
+*.log
+
+# Arquivos temporários
+tmp/
+temp/
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Diretório de dependências
+vendor/
+
+# Arquivos de IDE/Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*.bak
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de backup
+*.bak
+*.backup
+*~
+
+# Certificados e chaves
+*.pem
+*.key
+*.crt
+
+# Arquivos de configuração local
+config.local.yaml
+config.dev.yaml 

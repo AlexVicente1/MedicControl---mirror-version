@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Bulas - Sistema Farmácia</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .search-container {
+            margin: 2rem 0;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .bula-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        .bula-info h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        .bula-section {
+            margin-bottom: 1.5rem;
+        }
+        .bula-section h3 {
+            color: #34495e;
+            margin-bottom: 0.5rem;
+        }
+        .bula-section p {
+            color: #666;
+            line-height: 1.6;
+        }
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            padding: 1rem;
+            background: #fdf0f0;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Sistema Farmácia</h1>
+        <div class="user-info">
+            <span>{{.Username}}</span>
+            <span class="user-role">{{.Role}}</span>
+            <form action="/logout" method="POST" style="margin: 0;">
+                <button type="submit" class="btn btn-danger">Sair</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Consulta de Bulas</h1>
+        
+        <div class="search-container">
+            <input type="text" id="medicamento" class="search-input" placeholder="Digite o nome do medicamento...">
+            <button onclick="buscarBula()" class="btn btn-primary">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+
+        <div id="resultado" class="bula-info" style="display: none;">
+            <h2 id="nomeMedicamento"></h2>
+            
+            <div class="bula-section">
+                <h3>Indicações</h3>
+                <p id="indicacoes"></p>
+            </div>
+
+            <div class="bula-section">
+                <h3>Contraindicações</h3>
+                <p id="contraindicacoes"></p>
+            </div>
+
+            <div class="bula-section">
+                <h3>Posologia</h3>
+                <p id="posologia"></p>
+            </div>
+
+            <div class="bula-section">
+                <h3>Efeitos Colaterais</h3>
+                <p id="efeitosColaterais"></p>
+            </div>
+
+            <div class="bula-section">
+                <h3>Informações Adicionais</h3>
+                <p>Laboratório: <span id="laboratorio"></span></p>
+                <p>Registro ANVISA: <span id="registro"></span></p>
+            </div>
+        </div>
+
+        <div id="erro" class="error-message" style="display: none;">
+            Medicamento não encontrado. Por favor, verifique o nome e tente novamente.
+        </div>
+    </div>
+
+    <script>
+        async function buscarBula() {
+            const medicamento = document.getElementById('medicamento').value;
+            if (!medicamento) {
+                alert('Por favor, digite o nome do medicamento');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/bula/${encodeURIComponent(medicamento)}`);
+                const resultado = document.getElementById('resultado');
+                const erro = document.getElementById('erro');
+
+                if (response.ok) {
+                    const bula = await response.json();
+                    
+                    document.getElementById('nomeMedicamento').textContent = bula.nome;
+                    document.getElementById('indicacoes').textContent = bula.indicacoes;
+                    document.getElementById('contraindicacoes').textContent = bula.contraindicacoes;
+                    document.getElementById('posologia').textContent = bula.posologia;
+                    document.getElementById('efeitosColaterais').textContent = bula.efeitosColaterais;
+                    document.getElementById('laboratorio').textContent = bula.laboratorio;
+                    document.getElementById('registro').textContent = bula.registro;
+
+                    resultado.style.display = 'block';
+                    erro.style.display = 'none';
+                } else {
+                    resultado.style.display = 'none';
+                    erro.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Erro ao buscar bula:', error);
+                alert('Erro ao buscar informações da bula');
+            }
+        }
+
+        // Permitir busca ao pressionar Enter
+        document.getElementById('medicamento').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                buscarBula();
+            }
+        });
+    </script>
+</body>
+</html> 
